@@ -1,9 +1,9 @@
 <div class="container px-6 py-8 mx-auto">
     <div class="flex justify-between">
-        <h3 class="text-3xl font-bold text-gray-700">My Vehicles</h3>
+        <h3 class="text-3xl font-bold text-gray-700">Change Vehicle Ownership</h3>
         <a href="{{ url('register-vehicle') }}"
             class="px-6 py-2 text-xl font-medium text-white transition duration-500 ease-in-out transform bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ">Register
-            Vehicle
+            New Vehicle
         </a>
     </div>
     <div class="flex flex-col mt-8">
@@ -77,16 +77,17 @@
                                             disabled>Pending Approval
                                         </button>
                                     @else
-                                        <a href="{{url('/print-license', [ $vehicle->id])}}" target="_blank"
-                                            class="text-white bg-green-600 hover:bg-green-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Print
-                                            License
+                                        <a href="{{ url('/change-owner', [$vehicle->id]) }}"
+                                            target="_blank"
+                                            class="text-white bg-blue-600 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-blue-900">Change
+                                            Vehicle Ownership
                                         </a>
                                     @endif
 
                                 </td>
                             </tr>
                         @empty
-                       <p> You have no vehicle registered</p>
+                            <p> You have no vehicle registered</p>
                         @endforelse
                     </tbody>
                 </table>

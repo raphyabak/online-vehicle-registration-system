@@ -19,8 +19,10 @@ class CreateLicensesTable extends Migration
             $table->foreign('vehicle_id')->references('id')->on('vehicle_registrations')->onDelete('cascade');
             $table->string('license_number')->nullable();
             $table->dateTime('issue_date')->nullable();
+            $table->dateTime('expiry_date')->nullable();
             $table->unsignedBigInteger('inspector_id')->nullable();
             $table->foreign('inspector_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('renew_notify')->default(0);
             $table->timestamps();
         });
 

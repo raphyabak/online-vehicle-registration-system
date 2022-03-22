@@ -33,10 +33,10 @@
                                 class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                 Engine Number
                             </th>
-                            <th
+                            {{-- <th
                                 class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                 Chasis Number
-                            </th>
+                            </th> --}}
                             <th
                                 class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                 Owner's Detail
@@ -68,10 +68,10 @@
                                     <div class="text-sm leading-5 text-gray-900">{{ $vehicle->engine_number }}</div>
 
                                 </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-900">{{ $vehicle->chasis_number }}</div>
 
-                                </td>
+                                </td> --}}
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
@@ -91,49 +91,39 @@
                                 <td
                                     class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
 
-                                    {{-- <button
-                                        class="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900"
-                                        disabled>View Details
-                                    </button> --}}
+                                    <div class="flex justify-between" x-data="{approve:false}" @click.away="approve = false"
+                                    @close.stop="approve = false" @vehicle-approved.window="approve = false">
+                                        <a href="{{ url('admin/vehicle-details', [$vehicle->id]) }}"
+                                            class="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700">View</a>
+                                        <button @click="approve = true"
+                                            class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Approve</button>
+                                        <div class="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title"
+                                            role="dialog" aria-modal="true" x-show="approve" x-cloak>
+                                            <div
+                                                class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                                <div @click="approve = ! approve"
+                                                    class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
+                                                    aria-hidden="true"></div>
+                                                <!-- This element is to trick the browser into centering the modal contents. -->
+                                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                                    aria-hidden="true">&#8203;</span>
 
-                                    {{-- <button id="dropdownButton" data-dropdown-toggle="dropdown"
-                                        class="py-2 px-3 text-xs font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                        type="button">Action <svg class="ml-2 w-4 h-4" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7"></path>
-                                        </svg>
-                                    </button> --}}
-                                    <button id="dropdownButton" data-dropdown-toggle="dropdown" type="button" class="text-gray-700 border border-gray-700 hover:bg-gray-700 hover:text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                                          </svg>
-                                          {{-- <svg class="ml-2 w-4 h-4" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7"></path>
-                                        </svg> --}}
-                                      </button>
-                                    <div id="dropdown"
-                                        class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
-                                        <ul class="py-1" aria-labelledby="dropdownButton">
-                                            <li>
-                                                <a href="{{url('admin/vehicle-details', [$vehicle->id])}}"
-                                                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">View Details</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"
-                                                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Approve Vehicle Registration</a>
-                                            </li>
+                                                <div
+                                                    class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
 
-                                        </ul>
+                                                    <div class="mt-5 md:mt-0 md:col-span-2">
+                                                        {{-- @include('addUser') --}}
+                                                        @livewire('admin.approve-vehicle', ['vehicle' => $vehicle], key($vehicle->id))
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
-
                                 </td>
                             </tr>
                         @empty
+                        <p> You have no registration request</p>
                         @endforelse
                     </tbody>
                 </table>

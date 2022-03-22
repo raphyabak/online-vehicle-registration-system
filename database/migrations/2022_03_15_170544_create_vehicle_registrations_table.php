@@ -41,7 +41,7 @@ class CreateVehicleRegistrationsTable extends Migration
             $table->string('category')->nullable();
             $table->string('email')->nullable();
             $table->string('amount')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default(0);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

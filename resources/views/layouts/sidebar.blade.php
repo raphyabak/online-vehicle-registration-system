@@ -11,13 +11,13 @@
     </div>
 
     <nav class="mt-10">
-        <a class="flex items-center px-6 py-2 mt-4
+        @hasrole('Admin')
+        {{-- <a class="flex items-center px-6 py-2 mt-4
         @if (request()->routeIs('dashboard'))
         text-gray-100 bg-gray-700 bg-opacity-35
         @else
         text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100
         @endif
-
          " href="/dashboard">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -28,9 +28,9 @@
             </svg>
 
             <span class="mx-3">Dashboard</span>
-        </a>
+        </a> --}}
 
-        <a class="flex items-center px-6 py-2 mt-4  @if (request()->is('admin/permissions'))
+        {{-- <a class="flex items-center px-6 py-2 mt-4  @if (request()->is('admin/permissions'))
             text-gray-100 bg-gray-700 bg-opacity-35
             @else
             text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100
@@ -44,7 +44,7 @@
             </svg>
 
             <span class="mx-3">Permissions</span>
-        </a>
+        </a> --}}
 
         <a class="flex items-center px-6 py-2 mt-4  @if (request()->is('admin/roles'))
             text-gray-100 bg-gray-700 bg-opacity-35
@@ -78,6 +78,39 @@
             <span class="mx-3">Users</span>
         </a>
 
+        <a class="flex items-center px-6 py-2 mt-4  @if (request()->is('admin/vehicles-registration-requests'))
+            text-gray-100 bg-gray-700 bg-opacity-35
+            @else
+            text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100
+            @endif"
+            href="{{url('admin/vehicles-registration-requests')}}">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                </path>
+            </svg>
+
+            <span class="mx-3">Vehicles Registration Requests</span>
+        </a>
+        <a class="flex items-center px-6 py-2 mt-4  @if (request()->is('admin/license-renew-requests'))
+            text-gray-100 bg-gray-700 bg-opacity-35
+            @else
+            text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100
+            @endif"
+            href="{{url('admin/license-renew-requests')}}">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                </path>
+            </svg>
+
+            <span class="mx-3">License Renew Requests</span>
+        </a>
+
+        @endhasrole
+
         <a class="flex items-center px-6 py-2 mt-4  @if (request()->is('my-vehicles'))
             text-gray-100 bg-gray-700 bg-opacity-35
             @else
@@ -110,8 +143,12 @@
             <span class="mx-3">Register Vehicle License</span>
         </a>
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-            href="/forms">
+        <a class="flex items-center px-6 py-2 mt-4  @if (request()->is('renew-license'))
+            text-gray-100 bg-gray-700 bg-opacity-35
+            @else
+            text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100
+            @endif"
+            href="{{url('renew-license')}}">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,8 +160,12 @@
 
         </a>
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-            href="/forms">
+        <a class="flex items-center px-6 py-2 mt-4  @if (request()->is('change-vehicle-ownership'))
+            text-gray-100 bg-gray-700 bg-opacity-35
+            @else
+            text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100
+            @endif"
+            href="{{url('change-vehicle-ownership')}}">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

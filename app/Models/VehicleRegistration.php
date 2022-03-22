@@ -33,11 +33,13 @@ class VehicleRegistration extends Model
         'phone',
         'image',
         'national_id',
+        'inspector_id',
         'category',
         'email',
         'user_id',
         'amount',
         'status',
+        'license_id',
     ];
 
     public function user()
@@ -47,12 +49,12 @@ class VehicleRegistration extends Model
 
     public function license()
     {
-       return $this->hasOne(License::class, 'license_id');
+       return $this->belongsTo(License::class, 'license_id');
     }
 
     public function inspector()
     {
-       return $this->hasMany(User::class, 'inspector_id');
+       return $this->belongsTo(User::class, 'inspector_id');
     }
 
 }
