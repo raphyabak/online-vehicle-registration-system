@@ -12,10 +12,13 @@ class VehicleController extends Controller
         return view('view-details', compact('vehicle'));
     }
 
-
-
     public function changeOwner($id){
       $vehicle =  VehicleRegistration::findorfail($id);
       return view('change-owner', compact('vehicle'));
+    }
+
+    public function editDetails($id){
+        $vehicle =  VehicleRegistration::findorfail($id);
+        return view('edit-details', compact('vehicle'));
     }
 }

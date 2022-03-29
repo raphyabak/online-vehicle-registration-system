@@ -4,6 +4,7 @@
             {{-- <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a> --}}
+            <a href="/"><h3 class="text-3xl font-bold text-gray-700">Confirm Password</h3></a>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">

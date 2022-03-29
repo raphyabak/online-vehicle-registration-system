@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
           ]);
 
           $user->assignRole('Admin');
+
+          $this->call(LGSeeder::class);
     }
 }

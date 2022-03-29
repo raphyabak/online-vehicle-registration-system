@@ -16,6 +16,7 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "livewire/livewire": "^2.5",
         "mckenziearts/laravel-notify": "^2.2",
+        "raphyabak/state-lga": "dev-main",
         "spatie/laravel-permission": "^4.3"
     },
     "require-dev": {

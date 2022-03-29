@@ -2,18 +2,30 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\State;
 use Livewire\Component;
 
 class ChangeOwner extends Component
 {
     public $vehicle, $first_name, $middle_name, $last_name, $gender, $dob, $marital_status, $address, $religion,
-    $nationality, $town, $state_of_origin, $lga, $phone, $image, $national_id, $email, $user_id, $amount, $status;
-
+    $nationality, $town, $state, $lga, $phone, $image, $national_id, $email, $user_id, $amount, $status;
+    public $states = [], $lgas = [];
     protected $rules = [
        'first_name' => 'required',
        'last_name' => 'required',
        'email' => 'required|string|email|max:255',
        'middle_name' => ['required'],
+       'gender' => 'required',
+        'dob' => 'required',
+        'marital_status' => 'required',
+        'address' => 'required',
+        'religion' => 'required',
+        'nationality' => 'required',
+        'town' => 'required',
+        'state' => 'required',
+        'lga' => 'required',
+        'phone' => 'required',
+        'national_id' => 'required|string|max:11',
    ];
    public function mount(){
        $this->first_name = $this->vehicle->first_name;
@@ -26,12 +38,24 @@ class ChangeOwner extends Component
        $this->religion = $this->vehicle->religion;
        $this->nationality = $this->vehicle->nationality;
        $this->town = $this->vehicle->town;
-       $this->state_of_origin = $this->vehicle->state_of_origin;
+       $this->state = $this->vehicle->state_of_origin;
        $this->lga = $this->vehicle->lga;
        $this->phone = $this->vehicle->phone;
        $this->email = $this->vehicle->email;
        $this->national_id = $this->vehicle->national_id;
+       $this->states = State::all();
+        $state = State::findByName($this->state);
+        // dd($state->localGovernments);
+        $this->lgas = $state->localGovernments;
    }
+
+   public function updatedState()
+    {
+        $state = State::findByName($this->state);
+        // dd($state->localGovernments);
+        $this->lgas = $state->localGovernments;
+
+    }
 
    public function changeOwner(){
        $this->validate();
@@ -46,7 +70,7 @@ class ChangeOwner extends Component
             'religion' => $this->religion,
             'nationality' => $this->nationality,
             'town' => $this->town,
-            'state_of_origin' => $this->state_of_origin,
+            'state_of_origin' => $this->state,
             'lga' => $this->lga,
             'phone' => $this->phone,
             'national_id' => $this->national_id,

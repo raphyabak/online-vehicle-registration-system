@@ -3,15 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Models\State;
-use App\Models\VehicleRegistration;
 use Livewire\Component;
 
-class VehicleRegistrationForm extends Component
+class EditDetails extends Component
 {
-    public $vehicle_type, $vehicle_make, $make_year, $vehicle_model, $vehicle_color, $chasis_number, $engine_number,
+    public $vehicle, $vehicle_type, $vehicle_make, $make_year, $vehicle_model, $vehicle_color, $chasis_number, $engine_number,
     $date_of_purchase, $first_name, $middle_name, $last_name, $gender, $dob, $marital_status, $address, $religion,
     $nationality, $town, $state, $lga, $phone, $image, $national_id, $category, $email, $user_id, $amount, $status;
-   public $states = [], $lgas = [];
+    public $states = [], $lgas = [];
 
     protected $rules = [
         'first_name' => 'required',
@@ -22,8 +21,8 @@ class VehicleRegistrationForm extends Component
         'make_year' => 'required',
         'vehicle_model' => 'required',
         'vehicle_color' => 'required',
-        'chasis_number' => 'required|string|max:6|unique:vehicle_registrations',
-        'engine_number' => 'required|string|max:6|unique:vehicle_registrations',
+        'chasis_number' => 'required|string|max:6',
+        'engine_number' => 'required|string|max:6',
         'date_of_purchase' => 'required|date',
         'gender' => 'required',
         'dob' => 'required',
@@ -39,14 +38,41 @@ class VehicleRegistrationForm extends Component
         'category' => 'required',
     ];
 
-    public function mount(){
-
-        // $this->state_of_origin = $states;
-        $this->nationality = 'Nigerian';
-        $this->states =State::all();
+    public function mount()
+    {
+        $this->vehicle_type = $this->vehicle->vehicle_type;
+        $this->vehicle_make = $this->vehicle->vehicle_make;
+        $this->make_year = $this->vehicle->make_year;
+        $this->vehicle_model = $this->vehicle->vehicle_model;
+        $this->chasis_number = $this->vehicle->chasis_number;
+        $this->engine_number = $this->vehicle->engine_number;
+        $this->date_of_purchase = $this->vehicle->date_of_purchase;
+        $this->category = $this->vehicle->category;
+        $this->vehicle_color = $this->vehicle->vehicle_color;
+        $this->first_name = $this->vehicle->first_name;
+        $this->middle_name = $this->vehicle->middle_name;
+        $this->last_name = $this->vehicle->last_name;
+        $this->gender = $this->vehicle->gender;
+        $this->dob = $this->vehicle->dob;
+        $this->marital_status = $this->vehicle->marital_status;
+        $this->address = $this->vehicle->address;
+        $this->religion = $this->vehicle->religion;
+        $this->nationality = $this->vehicle->nationality;
+        $this->town = $this->vehicle->town;
+        $this->state = $this->vehicle->state_of_origin;
+        $this->lga = $this->vehicle->lga;
+        $this->phone = $this->vehicle->phone;
+        $this->email = $this->vehicle->email;
+        $this->national_id = $this->vehicle->national_id;
+        $this->nationality = $this->vehicle->nationality;
+        $this->states = State::all();
+        $state = State::findByName($this->state);
+        // dd($state->localGovernments);
+        $this->lgas = $state->localGovernments;
     }
 
-    public function updatedState(){
+    public function updatedState()
+    {
         $state = State::findByName($this->state);
         // dd($state->localGovernments);
         $this->lgas = $state->localGovernments;
@@ -59,12 +85,10 @@ class VehicleRegistrationForm extends Component
 
     }
 
-
-    public function registerVehicle()
-    {
+    public function editDetails(){
 
         $this->validate();
-        VehicleRegistration::create([
+        $this->vehicle->update([
             'vehicle_type' => $this->vehicle_type,
             'vehicle_make' => $this->vehicle_make,
             'make_year' => $this->make_year,
@@ -89,18 +113,15 @@ class VehicleRegistrationForm extends Component
             'national_id' => $this->national_id,
             'category' => $this->category,
             'email' => $this->email,
-            'user_id' => auth()->user()->id,
+            // 'user_id' => auth()->user()->id,
             'status' => 0,
         ]);
-        // dd('DONEEEE');
-        // $this->reset();
-        notify()->success('Vehicle Registered Sucessully ⚡️');
+        notify()->success('Vehicle Details Updated Sucessully ⚡️');
         return redirect('/my-vehicles');
-
     }
 
     public function render()
     {
-        return view('livewire.vehicle-registration-form');
+        return view('livewire.edit-details');
     }
 }

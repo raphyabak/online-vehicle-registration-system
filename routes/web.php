@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('renew-license', RenewLicense::class)->name('renewLicense');
     Route::get('change-vehicle-ownership', ChangeVehicleOwnership::class)->name('changeOwneship');
     Route::get('change-owner/{id}', [VehicleController::class, 'changeOwner'])->name('changeowner');
+    Route::get('edit-details/{id}', [VehicleController::class, 'editDetails'])->name('changeowner');
 });
 Route::get('/dashboard', function () {
     return view('dashboard');

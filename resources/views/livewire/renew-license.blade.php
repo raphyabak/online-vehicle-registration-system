@@ -45,7 +45,11 @@
                         @forelse ($vehicles as $vehicle)
                             <tr>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-900">{{ $vehicle->license->license_number }}</div>
+                                    <div class="text-sm leading-5 text-gray-900">@if ( $vehicle->license !== null)
+                                        {{ $vehicle->license->license_number }}
+                                        @else
+                            License not yet assigned
+                                    @endif</div>
 
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -65,28 +69,40 @@
 
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-900">{{ date('M j, Y g:ia', strtotime($vehicle->license->expiry_date)) }}</div>
+                                    <div class="text-sm leading-5 text-gray-900">@if ($vehicle->license !== null)
+                                        {{ date('M j, Y g:ia', strtotime($vehicle->license->expiry_date)) }}
+                                 @else
+                              Expiry date not yet assigned
+                                    @endif</div>
 
                                 </td>
 
                                 <td
                                     class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                    @if ($vehicle->license->expiry_date > now())
-                                        <button
-                                            class="text-white cursor-not-allowed bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900"
-                                            disabled>License Active
-                                        </button>
-                                    @elseif($vehicle->license->expiry_date > now() || $vehicle->license->renew_notify == 1)
+                                    @if ($vehicle->license !== null)
+                                    @if ($vehicle->license->expiry_date > now() )
                                     <button
-                                            class="text-white cursor-not-allowed bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-blue-900"
-                                            disabled>License Renew Pending Approval
-                                        </button>
-                                   @else
-                                        <button wire:click='renew({{$vehicle->license->id}})'
-                                            class="text-white bg-green-600 hover:bg-green-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Renew License
-                                        </button>
+                                        class="text-white cursor-not-allowed bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900"
+                                        disabled>License Active
+                                    </button>
+                                @elseif($vehicle->license->expiry_date > now() || $vehicle->license->renew_notify == 1)
+                                <button
+                                        class="text-white cursor-not-allowed bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-blue-900"
+                                        disabled>License Renew Pending Approval
+                                    </button>
+                               @else
+                                    <button wire:click='renew({{$vehicle->license->id}})'
+                                        class="text-white bg-green-600 hover:bg-green-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Renew License
+                                    </button>
+                                @endif
+                                    @else
+                                    <button
+                                    class="text-white cursor-not-allowed bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-blue-900"
+                                    disabled>Vehicle Pending Approval
+                                </button>
                                     @endif
-                                        
+
+
                                 </td>
                             </tr>
                         @empty

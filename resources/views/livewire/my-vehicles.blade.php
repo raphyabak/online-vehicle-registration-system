@@ -72,10 +72,16 @@
                                 <td
                                     class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
                                     @if ($vehicle->status == 0)
-                                        <button
+                                    <div class="flex justify-between">
+                                        <a href="{{url('/edit-details', [ $vehicle->id])}}"
+                                        class="text-white bg-red-600 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Edit Details
+                                    </a>
+                                    <button
                                             class="text-white cursor-not-allowed bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900"
                                             disabled>Pending Approval
                                         </button>
+                                </div>
+
                                     @else
                                         <a href="{{url('/print-license', [ $vehicle->id])}}" target="_blank"
                                             class="text-white bg-green-600 hover:bg-green-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Print

@@ -77,11 +77,12 @@
                                             disabled>Pending Approval
                                         </button>
                                     @else
-                                        <a href="{{ url('/change-owner', [$vehicle->id]) }}"
-                                            target="_blank"
-                                            class="text-white bg-blue-600 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-blue-900">Change
-                                            Vehicle Ownership
-                                        </a>
+                                    <div class="flex"><a href="{{ url('/change-owner', [$vehicle->id]) }}"
+
+                                        class="text-white bg-blue-600 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-blue-900">Change
+                                        Vehicle Ownership
+                                    </a></div>
+
                                     @endif
 
                                 </td>
